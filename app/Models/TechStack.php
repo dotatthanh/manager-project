@@ -8,4 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 class TechStack extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+    	'name',
+    	'description',
+    	'status',
+    ];
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+
+    public function projects()
+    {
+        return $this->hasMany(Project::class);
+    }
 }

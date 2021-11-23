@@ -44,13 +44,13 @@
                                             </button>
                                         </div>
                                         
-                                        {{-- @can('Thêm công nghệ') --}}
+                                        @can('Thêm công nghệ')
                                         <div class="col-sm-7">
                                             <div class="text-sm-right">
                                                 <a href="{{ route('tech_stacks.create') }}" class="text-white btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i> Thêm công nghệ</a>
                                             </div>
                                         </div><!-- end col-->
-                                        {{-- @endcan --}}
+                                        @endcan
                                     </div>
                                 </form>
 
@@ -66,32 +66,61 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td class="text-center">1</td>
-                                                <td>công nghệ 1</td>
-                                                <td>Mô tả</td>
-                                                <td>Trạng thái</td>
-                                                <td class="text-center">
-                                                    <ul class="list-inline font-size-20 contact-links mb-0">
-                                                        <li class="list-inline-item px">
-                                                            <a href="#" data-toggle="tooltip" data-placement="top" title="Sửa"><i class="mdi mdi-pencil text-success"></i></a>
-                                                        </li>
+                                            @php ($stt = 1)
+                                            @foreach ($tech_stacks as $tech_stack)
+                                                <tr>
+                                                    <td class="text-center">{{ $stt++ }}</td>
+                                                    <td>{{ $tech_stack->name }}</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#description{{ $tech_stack->id }}">Xem</button>
 
-                                                        <li class="list-inline-item px">
-                                                            <form method="post" action="{{ route('tech_stacks.destroy', 1) }}">
-                                                                @csrf
-                                                                @method('DELETE')
+                                                        <div class="modal fade" id="description{{ $tech_stack->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog modal-lg">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="exampleModalLabel">Mô tả</h5>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        {!! $tech_stack->description !!}
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>{{ $tech_stack->status ? 'Kích hoạt' : 'Chưa kích hoạt' }}</td>
+                                                    <td class="text-center">
+                                                        <ul class="list-inline font-size-20 contact-links mb-0">
+                                                            @can('Chỉnh sửa công nghệ')
+                                                            <li class="list-inline-item px">
+                                                                <a href="{{ route('tech_stacks.edit', $tech_stack->id) }}" data-toggle="tooltip" data-placement="top" title="Sửa"><i class="mdi mdi-pencil text-success"></i></a>
+                                                            </li>
+                                                            @endcan
 
-                                                                <button type="button" data-toggle="tooltip" data-placement="top" title="Xóa" class="border-0 bg-white"><i class="mdi mdi-trash-can text-danger"></i></button>
-                                                            </form>
-                                                        </li>
-                                                    </ul>
-                                                </td>
-                                            </tr>
+                                                            @can('Xóa công nghệ')
+                                                            <li class="list-inline-item px">
+                                                                <form method="post" action="{{ route('tech_stacks.destroy', $tech_stack->id) }}">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    
+                                                                    <button type="submit" data-toggle="tooltip" data-placement="top" title="Xóa" class="border-0 bg-white"><i class="mdi mdi-trash-can text-danger"></i></button>
+                                                                </form>
+                                                            </li>
+                                                            @endcan
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
 
+                                {{ $tech_stacks->links() }}
                             </div>
                         </div>
                     </div>

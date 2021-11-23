@@ -44,13 +44,13 @@
                                             </button>
                                         </div>
                                         
-                                        {{-- @can('Thêm loại dự án') --}}
+                                        @can('Thêm loại dự án')
                                         <div class="col-sm-7">
                                             <div class="text-sm-right">
                                                 <a href="{{ route('types.create') }}" class="text-white btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i> Thêm loại dự án</a>
                                             </div>
                                         </div><!-- end col-->
-                                        {{-- @endcan --}}
+                                        @endcan
                                     </div>
                                 </form>
 
@@ -67,33 +67,62 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td class="text-center">1</td>
-                                                <td>Loại dự án 1</td>
-                                                <td>Mô tả</td>
-                                                <td>Trong số ưu tiên</td>
-                                                <td>Trạng thái</td>
-                                                <td class="text-center">
-                                                    <ul class="list-inline font-size-20 contact-links mb-0">
-                                                        <li class="list-inline-item px">
-                                                            <a href="#" data-toggle="tooltip" data-placement="top" title="Sửa"><i class="mdi mdi-pencil text-success"></i></a>
-                                                        </li>
+                                            @php ($stt = 1)
+                                            @foreach ($types as $type)
+                                                <tr>
+                                                    <td class="text-center">{{ $stt++ }}</td>
+                                                    <td>{{ $type->name }}</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#description{{ $type->id }}">Xem</button>
 
-                                                        <li class="list-inline-item px">
-                                                            <form method="post" action="{{ route('types.destroy', 1) }}">
-                                                                @csrf
-                                                                @method('DELETE')
+                                                        <div class="modal fade" id="description{{ $type->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog modal-lg">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="exampleModalLabel">Mô tả</h5>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        {!! $type->description !!}
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>{{ $type->priority }}</td>
+                                                    <td>{{ $type->status ? 'Kích hoạt' : 'Chưa kích hoạt' }}</td>
+                                                    <td class="text-center">
+                                                        <ul class="list-inline font-size-20 contact-links mb-0">
+                                                            @can('Chỉnh sửa loại dự án')
+                                                            <li class="list-inline-item px">
+                                                                <a href="{{ route('types.edit', $type->id) }}" data-toggle="tooltip" data-placement="top" title="Sửa"><i class="mdi mdi-pencil text-success"></i></a>
+                                                            </li>
+                                                            @endcan
 
-                                                                <button type="button" data-toggle="tooltip" data-placement="top" title="Xóa" class="border-0 bg-white"><i class="mdi mdi-trash-can text-danger"></i></button>
-                                                            </form>
-                                                        </li>
-                                                    </ul>
-                                                </td>
-                                            </tr>
+                                                            @can('Xóa loại dự án')
+                                                            <li class="list-inline-item px">
+                                                                <form method="post" action="{{ route('types.destroy', $type->id) }}">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    
+                                                                    <button type="submit" data-toggle="tooltip" data-placement="top" title="Xóa" class="border-0 bg-white"><i class="mdi mdi-trash-can text-danger"></i></button>
+                                                                </form>
+                                                            </li>
+                                                            @endcan
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
 
+                                {{ $types->links() }}
                             </div>
                         </div>
                     </div>

@@ -32,7 +32,7 @@
 
                                 <form method="POST" action="{{ route('projects.store') }}" enctype="multipart/form-data">
 
-                                    @include('project._form')
+                                    @include('project._form', ['routeType' => 'create'])
                                     
                                 </form>
 

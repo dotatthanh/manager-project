@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreCustomerRequest;
+use DB;
 
 class CustomerController extends Controller
 {
@@ -12,9 +14,20 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('customer.index');
+        $customers = Customer::paginate(10);
+
+        if ($request->search) {
+            $customers = Customer::where('name', 'like', '%'.$request->search.'%')->paginate(10);
+            $customers->appends(['search' => $request->search]);
+        }
+
+        $data = [
+            'customers' => $customers
+        ];
+
+        return view('customer.index', $data);
     }
 
     /**
@@ -33,9 +46,24 @@ class CustomerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreCustomerRequest $request)
     {
-        //
+        try {
+            DB::beginTransaction();
+            
+            $create = Customer::create([
+                'name' => $request->name,
+                'description' => $request->description,
+                'priority' => $request->priority,
+                'status' => $request->status,
+            ]);
+            
+            DB::commit();
+            return redirect()->route('customers.index')->with('alert-success','Thêm loại dự án thành công!');
+        } catch (Exception $e) {
+            DB::rollback();
+            return redirect()->back()->with('alert-error','Thêm loại dự án thất bại!');
+        }
     }
 
     /**
@@ -57,7 +85,11 @@ class CustomerController extends Controller
      */
     public function edit(Customer $customer)
     {
-        //
+        $data = [
+            'data_edit' => $customer
+        ];
+
+        return view('customer.edit', $data);
     }
 
     /**
@@ -67,9 +99,24 @@ class CustomerController extends Controller
      * @param  \App\Models\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Customer $customer)
+    public function update(StoreCustomerRequest $request, Customer $customer)
     {
-        //
+        try {
+            DB::beginTransaction();
+
+            $customer->update([
+                'name' => $request->name,
+                'description' => $request->description,
+                'priority' => $request->priority,
+                'status' => $request->status,
+            ]);
+            
+            DB::commit();
+            return redirect()->route('customers.index')->with('alert-success','Sửa loại dự án thành công!');
+        } catch (Exception $e) {
+            DB::rollback();
+            return redirect()->back()->with('alert-error','Sửa loại dự án thất bại!');
+        }
     }
 
     /**
@@ -80,6 +127,20 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        //
+        try {
+            DB::beginTransaction();
+
+            if ($customer->projects->count() > 0) {
+                return redirect()->back()->with('alert-error','Xóa loại dự án thất bại! Loại dự án '.$customer->name.' đang có dự án.');
+            }
+
+            $customer->destroy($customer->id);
+            
+            DB::commit();
+            return redirect()->route('customers.index')->with('alert-success','Xóa loại dự án thành công!');
+        } catch (Exception $e) {
+            DB::rollback();
+            return redirect()->back()->with('alert-error','Xóa loại dự án thất bại!');
+        }
     }
 }

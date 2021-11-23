@@ -17,7 +17,7 @@
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item">Cài đặt</li>
-                                    <li class="breadcrumb-item"><a href="{{ route('users.index') }}" title="Cài đặt" data-toggle="tooltip" data-placement="top">Nhân sự</a></li>
+                                    <li class="breadcrumb-item"><a href="{{ route('users.index') }}" title="Cài đặt" data-toggle="tooltip" data-placement="top">nhân sự</a></li>
                                     <li class="breadcrumb-item active">Danh sách nhân sự</li>
                                 </ol>
                             </div>
@@ -45,13 +45,13 @@
                                             </button>
                                         </div>
 
-                                        {{-- @can('Thêm nhân sự') --}}
+                                        @can('Thêm nhân sự')
                                         <div class="col-sm-7">
                                             <div class="text-sm-right">
                                                 <a href="{{ route('users.create') }}" class="text-white btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i> Thêm nhân sự</a>
                                             </div>
                                         </div><!-- end col-->
-                                        {{-- @endcan --}}
+                                        @endcan
                                     </div>
                                 </form>
 
@@ -59,72 +59,134 @@
                                     <table class="table table-centered table-nowrap">
                                         <thead class="thead-light">
                                             <tr>
-                                                <th style="width: 70px;" class="text-center">STT</th>
-                                                <th>Ảnh đại diện</th>
-                                                <th>Họ và tên</th>
-                                                <th>Email</th>
-                                                <th>Vai trò</th>
-                                                <th>Trung tâm</th>
-                                                <th>Giới tính</th>
-                                                <th>Số điện thoại</th>
-                                                <th>Số căn cước</th>
-                                                <th>Ngày sinh</th>
-                                                <th>Ngoại ngữ</th>
-                                                <th>Kinh nghiệm</th>
-                                                <th>Địa chỉ</th>
-                                                <th class="text-center">Hành động</th>
-                                            </tr>
+                                              <th style="width: 70px;" class="text-center">STT</th>
+                                              <th>Ảnh đại diện</th>
+                                              <th>Họ và tên</th>
+                                              <th>Email</th>
+                                              <th>Vai trò</th>
+                                              <th>Phòng ban</th>
+                                              <th>Giới tính</th>
+                                              <th>Số điện thoại</th>
+                                              <th>Số căn cước</th>
+                                              <th>Ngày sinh</th>
+                                              <th>Ngoại ngữ</th>
+                                              <th>Kinh nghiệm</th>
+                                              <th>CV</th>
+                                              <th>Địa chỉ</th>
+                                              <th class="text-center">Hành động</th>
+                                          </tr>
                                         </thead>
                                         <tbody>
+                                            @php ($stt = 1)
+                                            @foreach ($users as $user)
                                                 <tr>
-                                                    <td class="text-center">1</td>
+                                                    <td class="text-center">{{ $stt++ }}</td>
                                                     <td>
+                                                        @if ($user->avatar)
+                                                            <div>
+                                                                <img class="rounded-circle avatar-xs" src="{{ asset($user->avatar) }}" alt="">
+                                                            </div>
+                                                        @else
                                                             <div class="avatar-xs">
                                                                 <span class="avatar-title rounded-circle text-uppercase">
-                                                                    {{ substr('a', 0, 1) }}
+                                                                    {{ substr($user->name, 0, 1) }}
                                                                 </span>
                                                             </div>
+                                                        @endif
                                                     </td>
-                                                    <td>Nguyễn Văn A</td>
-                                                    <td>email@gmail.com</td>
+                                                    <td>{{ $user->name }}</td>
+                                                    <td>{{ $user->email }}</td>
                                                     <td>
-                                                            <span class="badge badge-dark text-white">Admin</span>
+                                                        @foreach ($user->roles as $role)
+                                                            <span class="badge badge-dark text-white">{{ $role->name }}</span>
+                                                        @endforeach
                                                     </td>
-                                                    <td>Trung tâm 1</td>
-                                                    <td>Nam</td>
-                                                    <td>0123123123</td>
-                                                    <td>0123123123</td>
-                                                    <td>11/11/1991</td>
-                                                    <td>Tiếng Anh</td>
-                                                    <td>3 năm</td>
-                                                    <td>Đống Đa - Hà Nội</td>
-                                                    <td class="text-center">
-                                                        {{-- @if ($user->id != 1) --}}
-                                                        <ul class="list-inline font-size-20 contact-links mb-0">
-                                                            {{-- @can('Chỉnh sửa nhân sự') --}}
-                                                            <li class="list-inline-item px">
-                                                                <a href="#" data-toggle="tooltip" data-placement="top" title="Sửa"><i class="mdi mdi-pencil text-success"></i></a>
-                                                            </li>
-                                                            {{-- @endcan --}}
+                                                    <td>{{ $user->room->name }}</td>
+                                                    <td>{{ $user->gender }}</td>
+                                                    <td>{{ $user->phone_number }}</td>
+                                                    <td>{{ $user->card_id }}</td>
+                                                    <td>{{ date("d-m-Y", strtotime($user->birthday)) }}</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#foreign_language{{ $user->id }}">Xem</button>
 
-                                                            {{-- @can('Xóa nhân sự') --}}
+                                                        <div class="modal fade" id="foreign_language{{ $user->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog modal-lg">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="exampleModalLabel">Ngoại ngữ</h5>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        {!! $user->foreign_language !!}
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#experience{{ $user->id }}">Xem</button>
+
+                                                        <div class="modal fade" id="experience{{ $user->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog modal-lg">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="exampleModalLabel">Kinh nghiệm</h5>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        {!! $user->experience !!}
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        @if ($user->cv)
+                                                            <a href="" class="btn btn-success" target="_blank">Dowload</a>
+                                                        @else
+                                                            Chưa có cv
+                                                        @endif
+                                                    </td>
+                                                    <td>{{ $user->address }}</td>
+                                                    <td class="text-center">
+                                                        @if ($user->id != 1)
+                                                        <ul class="list-inline font-size-20 contact-links mb-0">
+                                                            @can('Chỉnh sửa nhân sự')
                                                             <li class="list-inline-item px">
-                                                                <form method="post" action="{{ route('users.destroy', 1) }}">
+                                                                <a href="{{ route('users.edit', $user->id) }}" data-toggle="tooltip" data-placement="top" title="Sửa"><i class="mdi mdi-pencil text-success"></i></a>
+                                                            </li>
+                                                            @endcan
+
+                                                            @can('Xóa nhân sự')
+                                                            <li class="list-inline-item px">
+                                                                <form method="post" action="{{ route('users.destroy', $user->id) }}">
                                                                     @csrf
                                                                     @method('DELETE')
                                                                     
-                                                                    <button type="button" data-toggle="tooltip" data-placement="top" title="Xóa" class="border-0 bg-white"><i class="mdi mdi-trash-can text-danger"></i></button>
+                                                                    <button type="submit" data-toggle="tooltip" data-placement="top" title="Xóa" class="border-0 bg-white"><i class="mdi mdi-trash-can text-danger"></i></button>
                                                                 </form>
                                                             </li>
-                                                            {{-- @endcan --}}
+                                                            @endcan
                                                         </ul>
-                                                        {{-- @endif --}}
+                                                        @endif
                                                     </td>
                                                 </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
 
+                                {{ $users->links() }}
                             </div>
                         </div>
                     </div>

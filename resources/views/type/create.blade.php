@@ -28,7 +28,6 @@
 
                 <div class="row">
                     <div class="col-12">
-                        
 
                                 <form method="POST" action="{{ route('types.store') }}" enctype="multipart/form-data">
 
@@ -78,12 +77,10 @@
     <script src="{{ asset('libs\@chenfengyuan\datepicker\datepicker.min.js') }}"></script>
     <!-- form advanced init -->
     <script src="{{ asset('js\pages\form-advanced.init.js') }}"></script>
-
     <!-- Summernote js -->
     <script src="{{ asset('libs\summernote\summernote-bs4.min.js') }}"></script>
     <!-- init js -->
     <script src="{{ asset('js\pages\form-editor.init.js') }}"></script>
-
     <script type="text/javascript">
         $('.docs-date').datepicker({
             format: 'dd-mm-yyyy',
@@ -97,9 +94,8 @@
     <link href="{{ asset('libs\bootstrap-colorpicker\css\bootstrap-colorpicker.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('libs\bootstrap-timepicker\css\bootstrap-timepicker.min.css') }}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="{{ asset('libs\@chenfengyuan\datepicker\datepicker.min.css') }}">
-
-    <link href="{{ asset('libs\select2\css\select2.min.css') }}" rel="stylesheet" type="text/css">
-
     <!-- Summernote css -->
     <link href="{{ asset('libs\summernote\summernote-bs4.min.css') }}" rel="stylesheet" type="text/css">
+    <!-- select2 css -->
+    <link href="{{ asset('libs\select2\css\select2.min.css') }}" rel="stylesheet" type="text/css">
 @endpush

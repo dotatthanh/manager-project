@@ -5,7 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\TypeController;
-use App\Http\Controllers\CenterController;
+use App\Http\Controllers\RoomController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\TechStackController;
 use App\Http\Controllers\ProjectController;
@@ -27,7 +27,7 @@ Route::get('/', function () {
 
 
 Route::middleware(['auth'])->group(function () {
-	Route::resource('centers', CenterController::class);
+	Route::resource('rooms', RoomController::class);
 	Route::resource('customers', CustomerController::class);
 	Route::resource('tech_stacks', TechStackController::class);
 	Route::resource('projects', ProjectController::class);

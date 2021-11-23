@@ -29,13 +29,11 @@
 
                 <div class="row">
                     <div class="col-12">
-
                                 <form method="POST" action="{{ route('users.update', $data_edit->id) }}" enctype="multipart/form-data">
                                     @method('PUT')
                                     @include('user._form', ['routeType' => 'edit'])
                                     
                                 </form>
-
                     </div>
                 </div>
                 <!-- end row -->
@@ -78,18 +76,26 @@
     <script src="{{ asset('libs\@chenfengyuan\datepicker\datepicker.min.js') }}"></script>
     <!-- form advanced init -->
     <script src="{{ asset('js\pages\form-advanced.init.js') }}"></script>
+    <!-- Summernote js -->
+    <script src="{{ asset('libs\summernote\summernote-bs4.min.js') }}"></script>
+    <!-- init js -->
+    <script src="{{ asset('js\pages\form-editor.init.js') }}"></script>
     <script type="text/javascript">
         $('.docs-date').datepicker({
             format: 'dd-mm-yyyy',
+            endDate: new Date(),    
         });
     </script>
 @endpush
 
 @push('css')
-    <link href="{{ asset('libs\select2\css\select2.min.css') }}" rel="stylesheet" type="text/css">
     <!-- datepicker css -->
     <link href="{{ asset('libs\bootstrap-datepicker\css\bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('libs\bootstrap-colorpicker\css\bootstrap-colorpicker.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('libs\bootstrap-timepicker\css\bootstrap-timepicker.min.css') }}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="{{ asset('libs\@chenfengyuan\datepicker\datepicker.min.css') }}">
+    <!-- Summernote css -->
+    <link href="{{ asset('libs\summernote\summernote-bs4.min.css') }}" rel="stylesheet" type="text/css">
+    <!-- select2 css -->
+    <link href="{{ asset('libs\select2\css\select2.min.css') }}" rel="stylesheet" type="text/css">
 @endpush

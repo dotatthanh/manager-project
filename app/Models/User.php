@@ -19,15 +19,20 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'name',
-        'code',
         'email',
         'password',
+        'name',
+        'tech_stack_id',
+        'room_id',
         'birthday',
-        'gender',
+        'phone_number',
         'address',
+        'card_id',
         'avatar',
-        'phone',
+        'foreign_language',
+        'experience',
+        'cv',
+        'gender',
     ];
 
     /**
@@ -48,4 +53,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function room()
+    {
+        return $this->belongsTo(Room::class);
+    }
+
+    public function techStack()
+    {
+        return $this->belongsTo(TechStack::class);
+    }
+
+    public function projects()
+    {
+        return $this->belongsToMany(Project::class);
+    }
 }

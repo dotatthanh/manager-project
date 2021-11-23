@@ -36,7 +36,7 @@
                                         <div class="col-sm-5">
                                             <div class="search-box mr-2 mb-2 d-inline-block">
                                                 <div class="position-relative">
-                                                    <input type="text" name="search" class="form-control" placeholder="Nhập vai trò">
+                                                    <input type="text" name="search" class="form-control" placeholder="Nhập tên vai trò">
                                                     <i class="bx bx-search-alt search-icon"></i>
                                                 </div>
                                             </div>
@@ -46,13 +46,13 @@
                                         </div>
 
 
-                                        {{-- @can('Thêm vai trò') --}}
+                                        @can('Thêm vai trò')
                                         <div class="col-sm-7">
                                             <div class="text-sm-right">
                                                 <a href="{{ route('roles.create') }}" class="text-white btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i> Thêm vai trò</a>
                                             </div>
                                         </div><!-- end col-->
-                                        {{-- @endcan --}}
+                                        @endcan
                                     </div>
                                 </form>
 
@@ -66,34 +66,40 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @php ($stt = 1)
+                                            @foreach ($roles as $role)
                                                 <tr>
-                                                    <td class="text-center">1</td>
-                                                    <td>admin</td>
+                                                    <td class="text-center">{{ $stt++ }}</td>
+                                                    <td>{{ $role->name }}</td>
                                                     <td class="text-center">
+                                                        @if ($role->id != 1)
                                                             <ul class="list-inline font-size-20 contact-links mb-0">
-                                                                {{-- @can('Chỉnh sửa vai trò') --}}
+                                                                @can('Chỉnh sửa vai trò')
                                                                 <li class="list-inline-item px">
-                                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Sửa"><i class="mdi mdi-pencil text-success"></i></a>
+                                                                    <a href="{{ route('roles.edit', $role->id) }}" data-toggle="tooltip" data-placement="top" title="Sửa"><i class="mdi mdi-pencil text-success"></i></a>
                                                                 </li>
-                                                                {{-- @endcan --}}
+                                                                @endcan
 
-                                                                {{-- @can('Xóa vai trò') --}}
+                                                                @can('Xóa vai trò')
                                                                 <li class="list-inline-item px">
-                                                                    <form method="post" action="{{ route('roles.destroy', 1) }}">
+                                                                    <form method="post" action="{{ route('roles.destroy', $role->id) }}">
                                                                         @csrf
                                                                         @method('DELETE')
                                                                         
-                                                                        <button type="button" data-toggle="tooltip" data-placement="top" title="Xóa" class="border-0 bg-white"><i class="mdi mdi-trash-can text-danger"></i></button>
+                                                                        <button type="submit" data-toggle="tooltip" data-placement="top" title="Xóa" class="border-0 bg-white"><i class="mdi mdi-trash-can text-danger"></i></button>
                                                                     </form>
                                                                 </li>
-                                                                {{-- @endcan --}}
+                                                                @endcan
                                                             </ul>
+                                                        @endif
                                                     </td>
                                                 </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
 
+                                {{ $roles->links() }}
                             </div>
                         </div>
                     </div>

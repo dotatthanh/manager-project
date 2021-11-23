@@ -16,7 +16,18 @@ class PermissionController extends Controller
      */
     public function index(Request $request)
     {
-        return view('permission.index');
+        $roles = Role::paginate(10);
+
+        if ($request->search) {
+            $roles = Role::where('name', 'like', '%'.$request->search.'%')->paginate(10);
+            $roles->appends(['search' => $request->search]);
+        }
+
+        $data = [
+            'roles' => $roles
+        ];
+
+        return view('permission.index', $data);
     }
 
     /**
@@ -26,7 +37,7 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        return view('permission.edit');
+        //
     }
 
     /**
@@ -48,7 +59,15 @@ class PermissionController extends Controller
      */
     public function show($id)
     {
-        //
+        $role = Role::findOrFail($id);
+        $permissions = Permission::all();
+
+        $data = [
+            'role' => $role,
+            'permissions' => $permissions,
+        ];
+
+        return view('permission.show', $data);
     }
 
     /**
@@ -59,6 +78,15 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
+        $role = Role::findOrFail($id);
+        $permissions = Permission::all();
+
+        $data = [
+            'role' => $role,
+            'permissions' => $permissions,
+        ];
+
+        return view('permission.edit', $data);
     }
 
     /**
@@ -70,6 +98,23 @@ class PermissionController extends Controller
      */
     public function update(Request $request, $id)
     {
+        try {
+            DB::beginTransaction();
+
+            $role = Role::findOrFail($id);
+
+            $role->permissions()->detach();
+
+            foreach ($request->permissions as $key => $value) {
+                $role->givePermissionTo($key);
+            }
+            
+            DB::commit();
+            return redirect()->route('permissions.index')->with('alert-success','Cập nhật quyền thành công!');
+        } catch (Exception $e) {
+            DB::rollback();
+            return redirect()->back()->with('alert-error','Cập nhật quyền thất bại!');
+        }
         
     }
 

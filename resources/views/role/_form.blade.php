@@ -9,5 +9,5 @@
     </div>
 </div>
 
-<button type="button" class="btn btn-primary mr-1 waves-effect waves-light">Lưu lại</button>
+<button type="submit" class="btn btn-primary mr-1 waves-effect waves-light">Lưu lại</button>
 <a href="{{ route('roles.index') }}" class="btn btn-secondary waves-effect">Quay lại</a>

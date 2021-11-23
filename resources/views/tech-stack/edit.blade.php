@@ -1,6 +1,6 @@
 @extends('layouts.default')
 
-@section('title') Cập nhật loại dự án @endsection
+@section('title') Cập nhật công nghệ @endsection
 
 @section('content')
     <div class="main-content">
@@ -12,12 +12,12 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="page-title-box d-flex align-items-center justify-content-between">
-                            <h4 class="mb-0 font-size-18">Cập nhật loại dự án</h4>
+                            <h4 class="mb-0 font-size-18">Cập nhật công nghệ</h4>
 
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
-                                    <li class="breadcrumb-item"><a href="{{ route('types.index') }}" title="Quản lý loại dự án" data-toggle="tooltip" data-placement="top">Quản lý loại dự án</a></li>
-                                    <li class="breadcrumb-item active">Cập nhật loại dự án</li>
+                                    <li class="breadcrumb-item"><a href="{{ route('tech_stacks.index') }}" title="Quản lý công nghệ" data-toggle="tooltip" data-placement="top">Quản lý công nghệ</a></li>
+                                    <li class="breadcrumb-item active">Cập nhật công nghệ</li>
                                 </ol>
                             </div>
 
@@ -28,10 +28,10 @@
 
                 <div class="row">
                     <div class="col-12">
-                        
-                                <form method="POST" action="{{ route('types.update', $data_edit->id) }}" enctype="multipart/form-data">
+
+                                <form method="POST" action="{{ route('tech_stacks.update', $data_edit->id) }}" enctype="multipart/form-data">
                                     @method('PUT')
-                                    @include('type._form')
+                                    @include('tech-stack._form')
                                     
                                 </form>
 
@@ -77,6 +77,10 @@
     <script src="{{ asset('libs\@chenfengyuan\datepicker\datepicker.min.js') }}"></script>
     <!-- form advanced init -->
     <script src="{{ asset('js\pages\form-advanced.init.js') }}"></script>
+    <!-- Summernote js -->
+    <script src="{{ asset('libs\summernote\summernote-bs4.min.js') }}"></script>
+    <!-- init js -->
+    <script src="{{ asset('js\pages\form-editor.init.js') }}"></script>
     <script type="text/javascript">
         $('.docs-date').datepicker({
             format: 'dd-mm-yyyy',
@@ -90,4 +94,8 @@
     <link href="{{ asset('libs\bootstrap-colorpicker\css\bootstrap-colorpicker.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('libs\bootstrap-timepicker\css\bootstrap-timepicker.min.css') }}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="{{ asset('libs\@chenfengyuan\datepicker\datepicker.min.css') }}">
+    <!-- Summernote css -->
+    <link href="{{ asset('libs\summernote\summernote-bs4.min.css') }}" rel="stylesheet" type="text/css">
+    <!-- select2 css -->
+    <link href="{{ asset('libs\select2\css\select2.min.css') }}" rel="stylesheet" type="text/css">
 @endpush

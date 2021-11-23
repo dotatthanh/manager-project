@@ -35,7 +35,7 @@
                                 <h4 class="card-title">Danh sách quyền</h4>
                                 <p class="card-title-desc">Chọn quyền cho vai trò</p>
 
-                                <form method="POST" action="" enctype="multipart/form-data">
+                                <form method="POST" action="{{ route('permissions.update', $role->id) }}" enctype="multipart/form-data">
                                     @method('PUT')
                                     @include('permission._form', ['routeType' => 'edit'])
                                     

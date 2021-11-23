@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class StoreTypeRequest extends FormRequest
 {
@@ -26,18 +25,23 @@ class StoreTypeRequest extends FormRequest
     {
         return [
             'name' => [
-                'required', 'max:255',
-                Rule::unique('types')->ignore($this->type),
+                'required', 'max:255', 'unique:types'
             ],
+            'description' => 'required',
+            'priority' => 'required',
+            'status' => 'required',
         ];
     }
 
     public function messages()
     {
         return [
-            'name.required' => 'Tên loại đồ uống là trường bắt buộc.', 
-            'name.max' => 'Tên loại đồ uống không được dài quá :max ký tự.', 
-            'name.unique' => 'loại đồ uống đã tồn tại.', 
+            'name.required' => 'Tên loại thuốc là trường bắt buộc.', 
+            'name.max' => 'Tên loại thuốc không được dài quá :max ký tự.', 
+            'name.unique' => 'Loại thuốc đã tồn tại.', 
+            'description.required' => 'Mô tả là trường bắt buộc.', 
+            'priority.required' => 'Trong số ưu tiên là trường bắt buộc.', 
+            'status.required' => 'Trạng thái là trường bắt buộc.', 
         ];
     }
 }

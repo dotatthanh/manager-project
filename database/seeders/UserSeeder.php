@@ -16,14 +16,18 @@ class UserSeeder extends Seeder
     {
         // Tạo admin
         User::create([
-        	'code' => 'ADMIN',
-        	'name' => 'Admin',
         	'email' => 'admin@gmail.com',
-        	'gender' => 'Nam',
         	'password' => bcrypt('123123123'),
+        	'name' => 'Admin',
+            'tech_stack_id' => '1',
+            'room_id' => '1',
         	'birthday' => '2000-08-17',
-        	'phone' => '0394121584',
+        	'phone_number' => '0394121584',
         	'address' => 'Sóc Trăng - Cần Thơ',
+            'card_id' => '123123123123',
+            'foreign_language' => 'Tiếng Anh',
+            'experience' => 'Làm việc lâu năm',
+        	'gender' => 'Nam',
         ]);
     }
 }
