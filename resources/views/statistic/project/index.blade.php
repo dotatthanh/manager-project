@@ -1,6 +1,6 @@
 @extends('layouts.default')
 
-@section('title') Quản lý dự án @endsection
+@section('title') Thống kê dự án @endsection
 
 @section('content')
     <div class="main-content">
@@ -12,12 +12,13 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="page-title-box d-flex align-items-center justify-content-between">
-                            <h4 class="mb-0 font-size-18">Danh sách dự án</h4>
+                            <h4 class="mb-0 font-size-18">Thống kê dự án</h4>
 
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="javascript: void(0);" title="Quản lý" data-toggle="tooltip" data-placement="top">Quản lý</a></li>
-                                    <li class="breadcrumb-item active">Danh sách dự án</li>
+                                    <li class="breadcrumb-item active">Thống kê</li>
+                                    <li class="breadcrumb-item active">Thống kê dự án</li>
                                 </ol>
                             </div>
 
@@ -30,12 +31,8 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <form method="GET" action="{{ route('projects.index') }}">
+                                <form method="GET" action="{{ route('statistic_projects.index') }}">
                                     <div class="row mb-2">
-                                        <div class="col-sm-3 mt-3">
-                                            <input type="text" name="name" class="form-control" placeholder="Nhập tên dự án">
-                                        </div>
-
                                         <div class="col-sm-3 mt-3">
                                             <select class="form-control select2" name="type_id">
                                                 <option value="">Chọn loại dự án</option>
@@ -45,14 +42,6 @@
                                             </select>
                                         </div>
 
-                                        <div class="col-sm-3 mt-3">
-                                            <select class="form-control select2" name="customer_id">
-                                                <option value="">Chọn khách hàng</option>
-                                                @foreach ($customers as $customer)
-                                                <option value="{{ $customer->id }}">{{ $customer->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
                                         <div class="col-sm-3 mt-3">
                                             <select class="form-control select2" name="room_id">
                                                 <option value="">Chọn phòng ban</option>
@@ -119,13 +108,6 @@
                                             </button>
                                         </div>
                                         
-                                        @can('Thêm dự án')
-                                        <div class="col-sm-7 mt-3">
-                                            <div class="text-sm-right">
-                                                <a href="{{ route('projects.create') }}" class="text-white btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i> Thêm dự án</a>
-                                            </div>
-                                        </div><!-- end col-->
-                                        @endcan
                                     </div>
                                 </form>
 
@@ -145,7 +127,6 @@
                                                 <th>Ngày kết thúc</th>
                                                 <th>Tiến độ</th>
                                                 <th>Trạng thái</th>
-                                                <th class="text-center">Hành động</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -201,26 +182,6 @@
                                                         @elseif($project->status == 2)
                                                             Hoàn thành
                                                         @endif
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <ul class="list-inline font-size-20 contact-links mb-0">
-                                                            @can('Chỉnh sửa dự án')
-                                                            <li class="list-inline-item px">
-                                                                <a href="{{ route('projects.edit', $project->id) }}" data-toggle="tooltip" data-placement="top" title="Sửa"><i class="mdi mdi-pencil text-success"></i></a>
-                                                            </li>
-                                                            @endcan
-
-                                                            @can('Xóa dự án')
-                                                            <li class="list-inline-item px">
-                                                                <form method="post" action="{{ route('projects.destroy', $project->id) }}">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    
-                                                                    <button type="submit" data-toggle="tooltip" data-placement="top" title="Xóa" class="border-0 bg-white"><i class="mdi mdi-trash-can text-danger"></i></button>
-                                                                </form>
-                                                            </li>
-                                                            @endcan
-                                                        </ul>
                                                     </td>
                                                 </tr>
                                             @endforeach

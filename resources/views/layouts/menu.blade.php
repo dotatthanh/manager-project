@@ -53,6 +53,23 @@
                 </li>
                 @endcan
 
+                @can('Xem thống kê dự án', 'Xem thống kê nhân sự')
+                <li>
+                    <a href="javascript: void(0);" class="waves-effect">
+                        <i class="bx bxs-bar-chart-alt-2"></i><span class="badge badge-pill badge-info float-right">02</span>
+                        <span>Thống kê</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        @can('Xem thống kê dự án')
+                        <li><a href="{{ route('statistic_projects.index') }}">Dự án</a></li>
+                        @endcan
+                        @can('Xem thống kê nhân sự')
+                        <li><a href="{{ route('statistic_users.index') }}">Nhân sự</a></li>
+                        @endcan
+                    </ul>
+                </li>
+                @endcan
+
                 @can('Xem danh sách nhân sự', 'Xem danh sách vai trò', 'Xem danh sách quyền')
                 <li>
                     <a href="javascript: void(0);" class="waves-effect">

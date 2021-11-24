@@ -1,6 +1,6 @@
 @extends('layouts.default')
 
-@section('title') Quản lý nhân sự @endsection
+@section('title') Thống kê nhân sự @endsection
 
 @section('content')
     <div class="main-content">
@@ -12,13 +12,13 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="page-title-box d-flex align-items-center justify-content-between">
-                            <h4 class="mb-0 font-size-18">Danh sách nhân sự</h4>
+                            <h4 class="mb-0 font-size-18">Thống kê nhân sự</h4>
 
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
-                                    <li class="breadcrumb-item">Cài đặt</li>
-                                    <li class="breadcrumb-item"><a href="{{ route('users.index') }}" title="Cài đặt" data-toggle="tooltip" data-placement="top">Nhân sự</a></li>
-                                    <li class="breadcrumb-item active">Danh sách nhân sự</li>
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);" title="Quản lý" data-toggle="tooltip" data-placement="top">Quản lý</a></li>
+                                    <li class="breadcrumb-item active">Thống kê</li>
+                                    <li class="breadcrumb-item active">Thống kê nhân sự</li>
                                 </ol>
                             </div>
 
@@ -31,27 +31,38 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <form method="GET" action="{{ route('users.index') }}">
+                                <form method="GET" action="{{ route('statistic_users.index') }}">
                                     <div class="row mb-2">
-                                        <div class="col-sm-5">
-                                            <div class="search-box mr-2 mb-2 d-inline-block">
-                                                <div class="position-relative">
-                                                    <input type="text" name="search" class="form-control" placeholder="Nhập họ và tên">
-                                                    <i class="bx bx-search-alt search-icon"></i>
-                                                </div>
-                                            </div>
+                                        <div class="col-sm-3 mt-3">
+                                            <select class="form-control select2" name="room_id">
+                                                <option value="">Chọn phòng ban</option>
+                                                @foreach ($rooms as $room)
+                                                <option value="{{ $room->id }}">{{ $room->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-3 mt-3">
+                                            <select class="form-control select2" name="status">
+                                                <option value="">Chọn trạng thái</option>
+                                                <option value="0">Chưa có dự án</option>   
+                                                <option value="1">Đang trong dự án</option>   
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-3 mt-3">
+                                            <select name="tech_stacks[]" id="addTechStack" class="select2 select2-multiple form-control" multiple data-placeholder="Chọn công nghệ ...">
+                                                @foreach ($tech_stacks as $tech_stack)
+                                                    <option value="{{ $tech_stack->id }}">
+                                                        {{ $tech_stack->name }}
+                                                    </option>
+                                                @endforeach        
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-2 mt-3">
                                             <button type="submit" class="btn btn-success waves-effect waves-light">
                                                 <i class="bx bx-search-alt search-icon font-size-16 align-middle mr-2"></i> Tìm kiếm
                                             </button>
                                         </div>
-
-                                        @can('Thêm nhân sự')
-                                        <div class="col-sm-7">
-                                            <div class="text-sm-right">
-                                                <a href="{{ route('users.create') }}" class="text-white btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i> Thêm nhân sự</a>
-                                            </div>
-                                        </div><!-- end col-->
-                                        @endcan
+                                        
                                     </div>
                                 </form>
 
@@ -73,7 +84,6 @@
                                               <th>Ngoại ngữ</th>
                                               <th>Kinh nghiệm</th>
                                               <th>Địa chỉ</th>
-                                              <th class="text-center">Hành động</th>
                                           </tr>
                                         </thead>
                                         <tbody>
@@ -156,28 +166,6 @@
                                                         </div>
                                                     </td>
                                                     <td>{{ $user->address }}</td>
-                                                    <td class="text-center">
-                                                        @if ($user->id != 1)
-                                                        <ul class="list-inline font-size-20 contact-links mb-0">
-                                                            @can('Chỉnh sửa nhân sự')
-                                                            <li class="list-inline-item px">
-                                                                <a href="{{ route('users.edit', $user->id) }}" data-toggle="tooltip" data-placement="top" title="Sửa"><i class="mdi mdi-pencil text-success"></i></a>
-                                                            </li>
-                                                            @endcan
-
-                                                            @can('Xóa nhân sự')
-                                                            <li class="list-inline-item px">
-                                                                <form method="post" action="{{ route('users.destroy', $user->id) }}">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    
-                                                                    <button type="submit" data-toggle="tooltip" data-placement="top" title="Xóa" class="border-0 bg-white"><i class="mdi mdi-trash-can text-danger"></i></button>
-                                                                </form>
-                                                            </li>
-                                                            @endcan
-                                                        </ul>
-                                                        @endif
-                                                    </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -210,3 +198,14 @@
         </footer>
     </div>
 @endsection
+
+@push('js')
+    <!-- select 2 plugin -->
+    <script src="{{ asset('libs\select2\js\select2.min.js') }}"></script>
+    <!-- init js -->
+    <script src="{{ asset('js\pages\ecommerce-select2.init.js') }}"></script>
+@endpush
+
+@push('css')
+    <link href="{{ asset('libs\select2\css\select2.min.css') }}" rel="stylesheet" type="text/css">
+@endpush

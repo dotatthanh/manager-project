@@ -18,7 +18,6 @@ class CreateProjectsTable extends Migration
             $table->integer('type_id');
             $table->integer('room_id');
             $table->integer('customer_id');
-            $table->integer('tech_stack_id');
             $table->string('name');
             $table->longText('description');
             $table->string('priority');

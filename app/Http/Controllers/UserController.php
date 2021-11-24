@@ -75,11 +75,10 @@ class UserController extends Controller
                 Storage::disk('public_uploads')->putFileAs('avatar/user', $request->avatar, $name);
             }
             
-            $create = User::create([
+            $user = User::create([
                 'email' => $request->email,
                 'password' => bcrypt($request->password),
                 'name' => $request->name,
-                'tech_stack_id' => $request->tech_stack_id,
                 'room_id' => $request->room_id,
                 'birthday' => date("Y-m-d", strtotime($request->birthday)),
                 'phone_number' => $request->phone_number,
@@ -91,13 +90,15 @@ class UserController extends Controller
                 'experience' => $request->experience,
             ]);
 
+            $user->techStacks()->attach($request->tech_stacks);
+
             foreach ($request->roles as $role_id) {
                 $role = Role::find($role_id)->name;
-                $create->assignRole($role);
+                $user->assignRole($role);
             }
 
-            $create->update([
-                'code' => 'TK'.str_pad($create->id, 6, '0', STR_PAD_LEFT)
+            $user->update([
+                'code' => 'TK'.str_pad($user->id, 6, '0', STR_PAD_LEFT)
             ]);
             
             DB::commit();
@@ -163,7 +164,6 @@ class UserController extends Controller
                     'email' => $request->email,
                     'gender' => $request->gender,
                     'birthday' => date("Y-m-d", strtotime($request->birthday)),
-                    'tech_stack_id' => $request->tech_stack_id,
                     'room_id' => $request->room_id,
                     'phone_number' => $request->phone_number,
                     'address' => $request->address,
@@ -179,7 +179,6 @@ class UserController extends Controller
                     'email' => $request->email,
                     'gender' => $request->gender,
                     'birthday' => date("Y-m-d", strtotime($request->birthday)),
-                    'tech_stack_id' => $request->tech_stack_id,
                     'room_id' => $request->room_id,
                     'phone_number' => $request->phone_number,
                     'address' => $request->address,
@@ -188,7 +187,8 @@ class UserController extends Controller
                     'experience' => $request->experience,
                 ]);
             }
-        
+
+            $user->techStacks()->sync($request->tech_stacks);
             $user->roles()->detach();
 
             foreach ($request->roles as $role_id) {
@@ -220,6 +220,7 @@ class UserController extends Controller
             }
 
             $user->roles()->detach();
+            $user->techStacks()->detach();
             $user->destroy($user->id);
             
             DB::commit();

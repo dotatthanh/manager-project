@@ -35,8 +35,7 @@ class UpdateUserRequest extends FormRequest
             'phone_number' => 'required|size:10',
             'address' => 'required',
             'roles' => 'required',
-
-            'tech_stack_id' => 'required',
+            'tech_stacks' => 'required',
             'room_id' => 'required',
             'card_id' => 'required|size:12',
             'foreign_language' => 'required',
@@ -65,7 +64,7 @@ class UpdateUserRequest extends FormRequest
             'card_id.size' => 'Số căn cước phải là :size số.',
             'foreign_language.required' => 'Ngoại ngữ là trường bắt buộc.',
             'experience.required' => 'Kinh nghiệm là trường bắt buộc.', 
-            'tech_stack_id.required' => 'Công nghệ là trường bắt buộc!',
+            'tech_stacks.required' => 'Công nghệ là trường bắt buộc!',
             'room_id.required' => 'Phòng ban là trường bắt buộc!',
         ];
     }

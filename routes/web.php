@@ -9,6 +9,8 @@ use App\Http\Controllers\RoomController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\TechStackController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\StatisticProjectController;
+use App\Http\Controllers\StatisticUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +33,8 @@ Route::middleware(['auth'])->group(function () {
 	Route::resource('customers', CustomerController::class);
 	Route::resource('tech_stacks', TechStackController::class);
 	Route::resource('projects', ProjectController::class);
+	Route::resource('statistic_projects', StatisticProjectController::class);
+	Route::resource('statistic_users', StatisticUserController::class);
 
 	Route::resource('users', UserController::class);
 	Route::get('/users/view-change-password/{user}', [UserController::class, 'viewChangePassword'])->name('users.view-change-password');

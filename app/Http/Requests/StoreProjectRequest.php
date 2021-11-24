@@ -33,7 +33,7 @@ class StoreProjectRequest extends FormRequest
             'type_id' => 'required',
             'room_id' => 'required',
             'customer_id' => 'required',
-            'tech_stack_id' => 'required',
+            'tech_stacks' => 'required',
             'start_date' => 'required|date', 
             'end_date' => 'required|date|after_or_equal:start_date', 
             'users' => 'required',
@@ -57,7 +57,7 @@ class StoreProjectRequest extends FormRequest
             'type_id.required' => 'Loại dự án là trường bắt buộc.', 
             'room_id.required' => 'Phòng ban là trường bắt buộc.', 
             'customer_id.required' => 'Khách hàng là trường bắt buộc.', 
-            'tech_stack_id.required' => 'Công nghệ là trường bắt buộc.', 
+            'tech_stacks.required' => 'Công nghệ là trường bắt buộc.', 
             'users.required' => 'Nhân sự là trường bắt buộc.', 
         ];
     }

@@ -17,11 +17,11 @@ class TechStack extends Model
 
     public function users()
     {
-        return $this->hasMany(User::class);
+        return $this->belongsToMany(User::class);
     }
 
     public function projects()
     {
-        return $this->hasMany(Project::class);
+        return $this->belongsToMany(Project::class);
     }
 }

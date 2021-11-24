@@ -97,14 +97,18 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="tech_stack_id">Công nghệ <span class="text-danger">*</span></label>
-                    <select class="form-control select2" name="tech_stack_id">
-                        <option value="">Chọn công nghệ</option>
-                        @foreach ($tech_stacks as $tech_stack)
-                            <option value="{{ $tech_stack->id }}" {{ isset($data_edit->tech_stack_id) && $data_edit->tech_stack_id == $tech_stack->id ? 'selected' : '' }}>{{ $tech_stack->name }}</option>
-                        @endforeach
+                    <label for="tech_stacks">Công nghệ <span class="text-danger">*</span></label>
+                    <select name="tech_stacks[]" id="addTechStack" class="select2 select2-multiple form-control" multiple data-placeholder="Chọn công nghệ ...">
+                        @foreach ($tech_stacks as $item)
+                            <option 
+                                {{ isset($data_edit) && in_array($item->id, $data_edit->tech_stacks->pluck('id')->toArray()) ?
+                                'selected' : '' }} 
+                                value="{{ $item->id }}">
+                                {{ $item->name }}
+                            </option>
+                        @endforeach        
                     </select>
-                    {!! $errors->first('tech_stack_id', '<span class="error">:message</span>') !!}
+                    {!! $errors->first('tech_stacks', '<span class="error">:message</span>') !!}
                 </div>
 
                 <div class="form-group">

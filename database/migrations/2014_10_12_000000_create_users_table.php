@@ -27,7 +27,6 @@ class CreateUsersTable extends Migration
             $table->string('avatar')->nullable();
             $table->longText('foreign_language');
             $table->longText('experience');
-            $table->string('cv')->nullable();
             $table->string('gender');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();

@@ -101,5 +101,11 @@ class RoleAndPermissionSeeder extends Seeder
         $admin->givePermissionTo($view_permission);
         $admin->givePermissionTo($view_permission_detail);
         $admin->givePermissionTo($edit_permission);
+
+        $view_statistic_project = Permission::create(['name' => 'Xem thống kê dự án']);
+        $view_statistic_user = Permission::create(['name' => 'Xem thống kê nhân sự']);
+
+        $admin->givePermissionTo($view_statistic_project);
+        $admin->givePermissionTo($view_statistic_user);
     }
 }

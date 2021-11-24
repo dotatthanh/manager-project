@@ -13,7 +13,6 @@ class Project extends Model
     	'type_id',
     	'room_id',
     	'customer_id',
-    	'tech_stack_id',
     	'name',
     	'description',
     	'priority',
@@ -33,9 +32,9 @@ class Project extends Model
         return $this->belongsTo(Room::class);
     }
 
-    public function techStack()
+    public function techStacks()
     {
-        return $this->belongsTo(TechStack::class);
+        return $this->belongsToMany(TechStack::class);
     }
 
     public function customer()
