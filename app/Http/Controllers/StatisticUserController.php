@@ -14,6 +14,7 @@ class StatisticUserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // Trang thống kê nhân viên
     public function index(Request $request)
     {
         $rooms = Room::all();

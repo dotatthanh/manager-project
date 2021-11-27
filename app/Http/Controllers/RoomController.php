@@ -14,6 +14,7 @@ class RoomController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // Trang danh sách phòng ban
     public function index(Request $request)
     {
         $rooms = Room::paginate(10);
@@ -35,6 +36,7 @@ class RoomController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // Trang tạo phòng ban
     public function create()
     {
         return view('room.create');
@@ -46,6 +48,7 @@ class RoomController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    // Trang post tạo phòng ban khi submit form
     public function store(StoreRoomRequest $request)
     {
         try {
@@ -81,6 +84,7 @@ class RoomController extends Controller
      * @param  \App\Models\Room  $room
      * @return \Illuminate\Http\Response
      */
+    // Trang sửa phòng ban
     public function edit(Room $room)
     {
         $data = [
@@ -97,6 +101,7 @@ class RoomController extends Controller
      * @param  \App\Models\Room  $room
      * @return \Illuminate\Http\Response
      */
+    // Hàm post update khi submit form
     public function update(StoreRoomRequest $request, Room $room)
     {
         try {
@@ -121,6 +126,7 @@ class RoomController extends Controller
      * @param  \App\Models\Room  $room
      * @return \Illuminate\Http\Response
      */
+    // Hàm xóa phòng ban
     public function destroy(Room $room)
     {
         try {

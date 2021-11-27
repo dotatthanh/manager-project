@@ -20,6 +20,7 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // Trang danh sách dự án
     public function index(Request $request)
     {
         $rooms = Room::all();
@@ -109,6 +110,7 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // Trang tạo dự án
     public function create()
     {
         $types = Type::where('status', 1)->get();
@@ -134,6 +136,7 @@ class ProjectController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    // Trang post tạo dự án khi submit form
     public function store(StoreProjectRequest $request)
     {
         try {
@@ -179,6 +182,7 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
+    // Trang sửa dự án
     public function edit(Project $project)
     {
         $types = Type::where('status', 1)->get();
@@ -206,6 +210,7 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
+    // Hàm post update dự án khi submit form
     public function update(UpdateProjectRequest $request, Project $project)
     {
         try {
@@ -242,6 +247,7 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
+    // Hàm xóa dự án
     public function destroy(Project $project)
     {
         try {

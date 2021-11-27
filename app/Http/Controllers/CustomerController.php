@@ -14,6 +14,7 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // Trang DS KH
     public function index(Request $request)
     {
         $customers = Customer::paginate(10);
@@ -35,6 +36,7 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // Trang tạo KH
     public function create()
     {
         return view('customer.create');
@@ -46,6 +48,7 @@ class CustomerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    // Hàm post tạo KH khi submit form
     public function store(StoreCustomerRequest $request)
     {
         try {
@@ -83,6 +86,7 @@ class CustomerController extends Controller
      * @param  \App\Models\Customer  $customer
      * @return \Illuminate\Http\Response
      */
+    // Trang sửa KH
     public function edit(Customer $customer)
     {
         $data = [
@@ -99,6 +103,7 @@ class CustomerController extends Controller
      * @param  \App\Models\Customer  $customer
      * @return \Illuminate\Http\Response
      */
+    // Hàm post update khi submit form
     public function update(StoreCustomerRequest $request, Customer $customer)
     {
         try {
@@ -125,6 +130,7 @@ class CustomerController extends Controller
      * @param  \App\Models\Customer  $customer
      * @return \Illuminate\Http\Response
      */
+    // Hàm xóa KH
     public function destroy(Customer $customer)
     {
         try {

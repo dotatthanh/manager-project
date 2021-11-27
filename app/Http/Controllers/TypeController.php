@@ -14,6 +14,7 @@ class TypeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // Trang danh sách loại dự án
     public function index(Request $request)
     {
         $types = Type::paginate(10);
@@ -35,6 +36,7 @@ class TypeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // Trang tạo laoị dự án
     public function create()
     {
         return view('type.create');
@@ -46,6 +48,7 @@ class TypeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    // Hàm post tạo loại dự án khi submit form
     public function store(StoreTypeRequest $request)
     {
         try {
@@ -83,6 +86,7 @@ class TypeController extends Controller
      * @param  \App\Models\Type  $type
      * @return \Illuminate\Http\Response
      */
+    // Trang sửa loại dự án
     public function edit(Type $type)
     {
         $data = [
@@ -99,6 +103,7 @@ class TypeController extends Controller
      * @param  \App\Models\Type  $type
      * @return \Illuminate\Http\Response
      */
+    // Hàm post update loại dự án khi submit form
     public function update(StoreTypeRequest $request, Type $type)
     {
         try {
@@ -125,6 +130,7 @@ class TypeController extends Controller
      * @param  \App\Models\Type  $type
      * @return \Illuminate\Http\Response
      */
+    // Hàm xóa loại dự án
     public function destroy(Type $type)
     {
         try {

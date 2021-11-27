@@ -14,6 +14,7 @@ class PermissionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // Trang DS quyền
     public function index(Request $request)
     {
         $roles = Role::paginate(10);
@@ -57,6 +58,7 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    // Trang xem quyền
     public function show($id)
     {
         $role = Role::findOrFail($id);
@@ -76,6 +78,7 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    // Trang sửa quyền
     public function edit($id)
     {
         $role = Role::findOrFail($id);
@@ -96,6 +99,7 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    // Hàm post update khi submit form
     public function update(Request $request, $id)
     {
         try {

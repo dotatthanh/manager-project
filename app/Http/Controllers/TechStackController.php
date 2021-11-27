@@ -14,6 +14,7 @@ class TechStackController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // Trang DS công nghệ
     public function index(Request $request)
     {
         $tech_stacks = TechStack::paginate(10);
@@ -35,6 +36,7 @@ class TechStackController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // Trang tạo công nghệ
     public function create()
     {
         return view('tech-stack.create');
@@ -46,6 +48,7 @@ class TechStackController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    // Hàm post tạo công nghệ khi submit form
     public function store(StoreTechStackRequest $request)
     {
         try {
@@ -82,6 +85,7 @@ class TechStackController extends Controller
      * @param  \App\Models\TechStack  $techStack
      * @return \Illuminate\Http\Response
      */
+    // Trang sửa công nghệ
     public function edit(TechStack $techStack)
     {
         $data = [
@@ -98,6 +102,7 @@ class TechStackController extends Controller
      * @param  \App\Models\TechStack  $techStack
      * @return \Illuminate\Http\Response
      */
+    // Hàm post update công nghệ khi submit form
     public function update(StoreTechStackRequest $request, TechStack $techStack)
     {
         try {
@@ -123,6 +128,7 @@ class TechStackController extends Controller
      * @param  \App\Models\TechStack  $techStack
      * @return \Illuminate\Http\Response
      */
+    // Hàm xóa công nghệ
     public function destroy(TechStack $techStack)
     {
         try {

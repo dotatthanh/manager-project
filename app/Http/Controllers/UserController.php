@@ -21,6 +21,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // Trang danh sách nhân sự
     public function index(Request $request)
     {
         $users = User::paginate(10);
@@ -42,6 +43,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // Trang tạo nhân sự
     public function create()
     {
         $roles = Role::all();
@@ -63,6 +65,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    // Hàm post tạo nhân sự khi submit form
     public function store(StoreUserRequest $request)
     {
         try {
@@ -126,6 +129,7 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
+    // Trang sửa nhân sự
     public function edit(User $user)
     {
         $roles = Role::all();
@@ -149,6 +153,7 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
+    // Hàm post update nhân sự khi submit form
     public function update(UpdateUserRequest $request, User $user)
     {
         try {
@@ -210,6 +215,7 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
+    // Hàm xóa nhân sự
     public function destroy(User $user)
     {
         try {

@@ -17,6 +17,7 @@ class StatisticProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // Trang danh sách thống kê dự án
     public function index(Request $request)
     {
         $rooms = Room::all();

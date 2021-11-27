@@ -14,6 +14,7 @@ class RoleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // Danh sách vai trò
     public function index(Request $request)
     {
         $roles = Role::paginate(10);
@@ -35,6 +36,7 @@ class RoleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // Trang tạo vai trò
     public function create()
     {
         return view('role.create');
@@ -46,6 +48,7 @@ class RoleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    // Hàm post tạo vai trò khi submit form
     public function store(StoreRoleRequest $request)
     {
         try {
@@ -81,6 +84,7 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    // Trang sửa vai trò
     public function edit($id)
     {
         $role = Role::findOrFail($id);
@@ -99,6 +103,7 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    // Trang post update vai trò khi submit form
     public function update(StoreRoleRequest $request, $id)
     {
         try {
@@ -122,6 +127,7 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    // Hàm xóa vai trò
     public function destroy($id)
     {
         try {
