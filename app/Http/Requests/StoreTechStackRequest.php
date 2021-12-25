@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreTechStackRequest extends FormRequest
 {
@@ -25,7 +26,8 @@ class StoreTechStackRequest extends FormRequest
     {
         return [
             'name' => [
-                'required', 'max:255', 'unique:tech_stacks'
+                'required', 'max:255',
+                Rule::unique('tech_stacks')->ignore($this->techStack),
             ],
             'description' => 'required',
             'status' => 'required',

@@ -124,8 +124,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="card_id">Số điện thoại <span class="text-danger">*</span></label>
-                    <input id="card_id" name="card_id" type="text" class="form-control" placeholder="Số điện thoại" value="{{ old('card_id', $data_edit->card_id ?? '') }}">
+                    <label for="card_id">Số căn cước <span class="text-danger">*</span></label>
+                    <input id="card_id" name="card_id" type="text" class="form-control" placeholder="Số căn cước" value="{{ old('card_id', $data_edit->card_id ?? '') }}">
                     {!! $errors->first('card_id', '<span class="error">:message</span>') !!}
                 </div>
 
@@ -159,7 +159,7 @@
 
         <div class="mt-3">
             <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light">Lưu lại</button>
-            <a href="{{ route('types.index') }}" class="btn btn-secondary waves-effect">Quay lại</a>
+            <a href="{{ route('users.index') }}" class="btn btn-secondary waves-effect">Quay lại</a>
         </div>
     </div>
 

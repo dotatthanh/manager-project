@@ -59,7 +59,7 @@
                                         </div>
                                         <div class="col-sm-2 mt-3">
                                             <button type="submit" class="btn btn-success waves-effect waves-light">
-                                                <i class="bx bx-search-alt search-icon font-size-16 align-middle mr-2"></i> Tìm kiếm
+                                                <i class="bx bx-search-alt search-icon font-size-16 align-middle mr-2"></i> Thống kê
                                             </button>
                                         </div>
                                         
@@ -77,6 +77,7 @@
                                               <th>Vai trò</th>
                                               <th>Phòng ban</th>
                                               <th>Công nghệ</th>
+                                              <th>Dự án tham gia</th>
                                               <th>Giới tính</th>
                                               <th>Số điện thoại</th>
                                               <th>Số căn cước</th>
@@ -115,6 +116,11 @@
                                                     <td>
                                                         @foreach ($user->techStacks as $techStack)
                                                             <p>{{ $techStack->name }}</p>
+                                                        @endforeach
+                                                    </td>
+                                                    <td>
+                                                        @foreach ($user->projects as $project)
+                                                            <p>{{ $project->name }}</p>
                                                         @endforeach
                                                     </td>
                                                     <td>{{ $user->gender }}</td>

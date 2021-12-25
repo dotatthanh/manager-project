@@ -38,7 +38,7 @@
 
         <div class="mt-3">
             <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light">Lưu lại</button>
-            <a href="{{ route('types.index') }}" class="btn btn-secondary waves-effect">Quay lại</a>
+            <a href="{{ route('tech_stacks.index') }}" class="btn btn-secondary waves-effect">Quay lại</a>
         </div>
     </div>
 

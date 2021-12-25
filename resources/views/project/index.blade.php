@@ -118,9 +118,16 @@
                                                 <i class="bx bx-search-alt search-icon font-size-16 align-middle mr-2"></i> Tìm kiếm
                                             </button>
                                         </div>
+
+                                        <div class="col-sm-2 mt-3">
+                                            <button type="reset" class="btn btn-success waves-effect waves-light reset">
+                                                <i class="bx bx-search-alt search-icon font-size-16 align-middle mr-2"></i> Bỏ lọc
+                                            </button>
+                                        </div>
+
                                         
                                         @can('Thêm dự án')
-                                        <div class="col-sm-7 mt-3">
+                                        <div class="col-sm-5 mt-3">
                                             <div class="text-sm-right">
                                                 <a href="{{ route('projects.create') }}" class="text-white btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i> Thêm dự án</a>
                                             </div>
@@ -275,6 +282,10 @@
     <script type="text/javascript">
         $('.docs-date').datepicker({
             format: 'dd-mm-yyyy',
+        });
+
+        $('.reset').click(function() {
+            $('select.select2').val('').trigger('change');
         });
     </script>
 @endpush

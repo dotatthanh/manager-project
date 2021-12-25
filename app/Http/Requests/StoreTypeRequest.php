@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreTypeRequest extends FormRequest
 {
@@ -25,7 +26,8 @@ class StoreTypeRequest extends FormRequest
     {
         return [
             'name' => [
-                'required', 'max:255', 'unique:types'
+                'required', 'max:255',
+                Rule::unique('types')->ignore($this->type),
             ],
             'description' => 'required',
             'priority' => 'required',

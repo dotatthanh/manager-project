@@ -22,7 +22,6 @@ class User extends Authenticatable
         'email',
         'password',
         'name',
-        'tech_stack_id',
         'room_id',
         'birthday',
         'phone_number',

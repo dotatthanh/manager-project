@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreRoomRequest extends FormRequest
 {
@@ -25,7 +26,8 @@ class StoreRoomRequest extends FormRequest
     {
         return [
             'name' => [
-                'required', 'max:255', 'unique:rooms'
+                'required', 'max:255',
+                Rule::unique('rooms')->ignore($this->room),
             ],
             'description' => 'required',
         ];

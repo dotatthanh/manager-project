@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\User;
+use App\Models\Room;
+use App\Models\TechStack;
 
 class UserSeeder extends Seeder
 {
@@ -28,6 +30,19 @@ class UserSeeder extends Seeder
             'foreign_language' => 'Tiếng Anh',
             'experience' => 'Làm việc lâu năm',
         	'gender' => 'Nam',
+        ]);
+
+        // Tạo phòng ban
+        Room::create([
+            'name' => 'test',
+            'description' => 'test',
+        ]);
+
+        // Tạo công nghệ
+        TechStack::create([
+            'name' => 'test',
+            'description' => 'test',
+            'status' => '1',
         ]);
     }
 }

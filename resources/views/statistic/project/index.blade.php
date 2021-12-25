@@ -104,94 +104,22 @@
                                         </div>
                                         <div class="col-sm-2 mt-3">
                                             <button type="submit" class="btn btn-success waves-effect waves-light">
-                                                <i class="bx bx-search-alt search-icon font-size-16 align-middle mr-2"></i> Tìm kiếm
+                                                <i class="bx bx-search-alt search-icon font-size-16 align-middle mr-2"></i> Thống kê
                                             </button>
                                         </div>
                                         
                                     </div>
                                 </form>
 
-                                <div class="table-responsive">
-                                    <table class="table table-nowrap">
-                                        <thead class="thead-light">
-                                            <tr>
-                                                <th style="width: 70px;" class="text-center">STT</th>
-                                                <th>Tên dự án</th>
-                                                <th>Loại dự án</th>
-                                                <th>Mô tả</th>
-                                                <th>Khách hàng</th>
-                                                <th>Phòng ban</th>
-                                                <th>Công nghệ</th>
-                                                <th>Nhân sự</th>
-                                                <th>Ngày bắt đầu</th>
-                                                <th>Ngày kết thúc</th>
-                                                <th>Tiến độ</th>
-                                                <th>Trạng thái</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @php ($stt = 1)
-                                            @foreach ($projects as $project)
-                                                <tr>
-                                                    <td class="text-center">{{ $stt++ }}</td>
-                                                    <td>{{ $project->name }}</td>
-                                                    <td>{{ $project->type->name }}</td>
-                                                    <td>
-                                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#description{{ $project->id }}">Xem</button>
-
-                                                        <div class="modal fade" id="description{{ $project->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                            <div class="modal-dialog modal-lg">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title" id="exampleModalLabel">Mô tả</h5>
-                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                            <span aria-hidden="true">&times;</span>
-                                                                        </button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        {!! $project->description !!}
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>{{ $project->customer->name }}</td>
-                                                    <td>{{ $project->room->name }}</td>
-                                                    <td>
-                                                        @foreach ($project->techStacks as $techStack)
-                                                            <p>{{ $techStack->name }}</p>
-                                                        @endforeach
-                                                    </td>
-                                                    <td>
-                                                        @foreach ($project->users as $user)
-                                                            <p>{{ $user->name }}</p>
-                                                        @endforeach
-                                                    </td>
-                                                    </td>
-                                                    <td>{{ date("d-m-Y", strtotime($project->start_date)) }}</td>
-                                                    <td>{{ date("d-m-Y", strtotime($project->end_date)) }}</td>
-                                                    <td>{{ $project->progress }}%</td>
-                                                    <td>
-                                                        @if($project->status == 0)
-                                                            Chưa triển khai
-                                                        @elseif($project->status == 1)
-                                                            Đang triển khai
-                                                        @elseif($project->status == 2)
-                                                            Hoàn thành
-                                                        @endif
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                                {{ $projects->links() }}
                             </div>
                         </div>
+
+                        <div class="card">
+                            <div class="card-body font-weight-bold">
+                                Số lượng dự án: {{ $projects->count() }}
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div> <!-- container-fluid -->
