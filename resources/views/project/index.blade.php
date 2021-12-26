@@ -223,7 +223,7 @@
                                                                     @csrf
                                                                     @method('DELETE')
                                                                     
-                                                                    <button type="submit" data-toggle="tooltip" data-placement="top" title="Xóa" class="border-0 bg-white"><i class="mdi mdi-trash-can text-danger"></i></button>
+                                                                    <button type="submit" data-toggle="tooltip" data-placement="top" title="Xóa" class="border-0 bg-white"><i class="mdi mdi-trash-can text-danger" onClick="return confirm('Bạn có chắc chắn muốn xóa không?')"></i></button>
                                                                 </form>
                                                             </li>
                                                             @endcan

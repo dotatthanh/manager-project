@@ -43,7 +43,7 @@
                     <select name="tech_stacks[]" id="addTechStack" class="select2 select2-multiple form-control" multiple data-placeholder="Chọn công nghệ ...">
                         @foreach ($tech_stacks as $item)
                             <option 
-                                {{ isset($data_edit) && in_array($item->id, $data_edit->tech_stacks->pluck('id')->toArray()) ?
+                                {{ isset($data_edit) && in_array($item->id, $data_edit->techStacks->pluck('id')->toArray()) ?
                                 'selected' : '' }} 
                                 value="{{ $item->id }}">
                                 {{ $item->name }}
@@ -154,7 +154,7 @@
 </div>
 <div class="card">
     <div class="card-body">
-        <h4 class="card-title mb-3">Mô tả</h4>
+        <h4 class="card-title mb-3">Mô tả <span class="text-danger">*</span></h4>
 
         <textarea id="description" class="summernote mb-2" name="description">{{ isset($data_edit->description) ? $data_edit->description : '' }}</textarea>
         {!! $errors->first('description', '<span class="error">:message</span>') !!}

@@ -27,7 +27,7 @@ class StoreTechStackRequest extends FormRequest
         return [
             'name' => [
                 'required', 'max:255',
-                Rule::unique('tech_stacks')->ignore($this->techStack),
+                Rule::unique('tech_stacks')->ignore($this->tech_stack),
             ],
             'description' => 'required',
             'status' => 'required',
