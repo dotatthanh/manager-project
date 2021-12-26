@@ -66,7 +66,8 @@
                                     </div>
                                 </form>
 
-                                <div class="table-responsive">
+                                <div class="table-responsive mt-4">
+                                    <p class="font-weight-bold">Số lượng nhân viên: {{ $users->count() }}</p>
                                     <table class="table table-centered table-nowrap">
                                         <thead class="thead-light">
                                             <tr>
